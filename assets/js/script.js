@@ -35,8 +35,26 @@ function runGame(gameType) {
 
 }
 
+/**
+ * Checks the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
 function checkAnswer() {
     
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    if (isCorrect) {
+        alert("Hey! You got it right! :D");
+        incrementScore()
+    } else {
+        alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}`);
+        incrementWrongAnswer()
+    }
+
+    runGame(calculatedAnswer[1]);
+
 }
 
 /**
@@ -45,9 +63,9 @@ function checkAnswer() {
  */
 function calculateCorrectAnswer() {
 
-    let oparand1 = parseInt(document.getElementById('operand1').innertext);
-    let oparand2 = parseInt(document.getElementById('operand2').innertext);
-    let operator = document.getElementById('operator').innertext;
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
 
     if (operator === "+") {
         return [operand1 + operand2, "addition"];
@@ -58,17 +76,29 @@ function calculateCorrectAnswer() {
     }
 }
 
+/**
+ * Gets the current score from the DOM and increments it by 1
+ */
 function incrementScore() {
     
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
+
 }
 
+/**
+ * Gets the current wrong answer from the DOM and increments it by 1
+ */
 function incrementWrongAnswer() {
+
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
     
 }
 
-function displayAdditionQuestion(oparand1, oparand2) {
-    document.getElementById('operand1').textContent = oparand1;
-    document.getElementById('operand2').textContent = oparand2;
+function displayAdditionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = '+';
 }
 
